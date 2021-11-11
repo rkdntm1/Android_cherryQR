@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "389111142924",
+    "project_id": "cheeryproject1",
+    "storage_bucket": "cheeryproject1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:389111142924:android:6393f7a34697f9b8242c29",
+        "android_client_info": {
+          "package_name": "net.cherry"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "389111142924-2rbhd85o05099s0e9rgt0euuk70mp8dl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.cherry",
+            "certificate_hash": "1a0f766d12d2ede937d826d64ec8310cf9b3cb1f"
+          }
+        },
+        {
+          "client_id": "389111142924-2h4ncp1b3lm6g75mjo5jslvr91clmg2h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDufxHtrGxkwq8I6w1ep1LIgEUnt5TahUI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "389111142924-2h4ncp1b3lm6g75mjo5jslvr91clmg2h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="net.cherry">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_cherry_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_cherry_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.CherryProject_"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".BillActivity"
+            android:exported="true" />
+        <activity
+            android:name=".history.HistroyActivity"
+            android:exported="true" />
+        <activity
+            android:name=".StartActivity"
+            android:exported="true" />
+        <activity
+            android:name=".tokenPage.JsInterfaceActivity"
+            android:exported="true" />
+        <activity
+            android:name=".settingPage.PwPageViewActivity"
+            android:exported="true" />
+        <activity
+            android:name=".SettingActivity"
+            android:exported="true" />
+        <activity
+            android:name=".donatePage.DonatePageAcitivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="cherry"
+                    android:scheme="test" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".joinPage.JoinPage2Acitivity"
+            android:exported="true" />
+        <activity
+            android:name=".joinPage.JoinPage1moreActivity"
+            android:exported="true" />
+        <activity
+            android:name=".joinPage.JoinPage1Activity"
+            android:exported="true" />
+        <activity
+            android:name=".joinPage.JoinPage3Activity"
+            android:exported="true" />
+        <activity
+            android:name=".QRActivity"
+            android:exported="true"
+            android:screenOrientation="sensorPortrait"
+            android:stateNotNeeded="true"
+            android:theme="@style/zxing_CaptureTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".SplashActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true" />
+    </application>
+
+</manifest>

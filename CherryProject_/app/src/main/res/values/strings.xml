@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">CherryProject_1</string>
+    <string name="sp_user_check">sp_user_check</string>
+    <string name="sp_user_token">sp_user_token</string>
+    <string name="sp_user_uid">sp_user_uid</string>
+    <string name="base_url">"http://192.168.8.56:18080"</string>
+</resources>
