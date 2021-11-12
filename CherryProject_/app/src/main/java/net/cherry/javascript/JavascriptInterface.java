@@ -7,8 +7,13 @@ import android.webkit.WebView;
 import android.widget.Toast;
 
 import net.cherry.constants.Constants;
+import net.cherry.util.SharedPreferenceUtils;
 
 public class JavascriptInterface {
+    public static String mobIphonNo;
+    public static String brthNum;
+    public static String sexSeCode;
+
     Context context;
     WebView webView;
     Activity activity;
@@ -22,5 +27,8 @@ public class JavascriptInterface {
     @android.webkit.JavascriptInterface // javascript 와 연결시킬때
     public void getJoinData1(String mobIphonNo, String brthNum, String sexSeCode) {
         Log.d(Constants.TAG, "mobIphonNo : " + mobIphonNo + ",brthNum : " + brthNum + ", sexSeCode : " + sexSeCode);
+        JavascriptInterface.mobIphonNo = mobIphonNo;
+        JavascriptInterface.brthNum = brthNum;
+        JavascriptInterface.sexSeCode = sexSeCode;
     }
 }

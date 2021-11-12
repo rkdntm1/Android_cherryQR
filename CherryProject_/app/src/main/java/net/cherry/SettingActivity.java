@@ -18,6 +18,7 @@ import net.cherry.joinPage.JoinPage1moreActivity;
 import net.cherry.retrofit.RetrofitAPI;
 import net.cherry.retrofit.entities.JoinDataInServer;
 import net.cherry.settingPage.PwPageViewActivity;
+import net.cherry.util.EmailUtils;
 import net.cherry.util.SharedPreferenceUtils;
 
 import java.util.Set;
@@ -81,9 +82,8 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 moveDetailPage("http://192.168.8.56:18080/public/terms/userNotice");
                 break;
             case R.id.tv_supEmail:
-                String url = "support@cherry.charity";
-                Intent urlIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                startActivity(urlIntent);
+                EmailUtils.sendEmailToAdmin(SettingActivity.this, "Cherry팀에게 메일보내기", new
+                        String[]{"support@cherry.charity"});
                 break;
             case R.id.tv_signOut:
                 signOut();

@@ -109,7 +109,7 @@ public class JoinPage3Activity extends AppCompatActivity {
     private void login() {
         RetrofitAPI retrofitAPI = ApiClient.getClient().create(RetrofitAPI.class);
 
-        retrofitAPI.doJoin(spu.getString(R.string.sp_user_uid, null), spu.getString(R.string.sp_user_token, null),null,null,null,null,null)
+        retrofitAPI.doJoin(spu.getString(R.string.sp_user_uid, null), spu.getString(R.string.sp_user_token, null),null, JavascriptInterface.brthNum,JavascriptInterface.sexSeCode,null,JavascriptInterface.mobIphonNo)
                 .enqueue(new Callback<JoinDataInServer>() {
                     @Override
                     public void onResponse(Call<JoinDataInServer> call, Response<JoinDataInServer> response) {
