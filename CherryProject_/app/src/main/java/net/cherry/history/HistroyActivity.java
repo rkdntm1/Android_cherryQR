@@ -27,8 +27,12 @@ import net.cherry.retrofit.entities.DonateData;
 import net.cherry.retrofit.entities.DonateHistoryDataInServer;
 import net.cherry.util.SharedPreferenceUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,6 +48,9 @@ public class HistroyActivity extends AppCompatActivity {
 
     private SharedPreferenceUtils spu;
 
+    private Integer yearNow;
+    private Integer monthNow;
+
     private Integer yearPick;
     private Integer monthPick;
     private Integer pageRef = 0;
@@ -56,13 +63,15 @@ public class HistroyActivity extends AppCompatActivity {
     DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+            pageRef = 0; // 페이지 기준 초기화.
             Log.d(TAG, "year = " + year + ", month = " + month);
             yearPick = year;
             monthPick = month;
 
             progressDialog.show();
 
-            doHistory(pageRef, yearPick, monthPick);
+            getHistory(pageRef, yearPick, monthPick);
+
         }
     };
 
@@ -71,6 +80,7 @@ public class HistroyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_histroy);
 
+        Log.d(TAG, "yearPick ::" + yearPick);
         recyclerView = findViewById(R.id.rv);
 
         spu = new SharedPreferenceUtils(this);
@@ -94,9 +104,22 @@ public class HistroyActivity extends AppCompatActivity {
             }
         });
 
+        progressDialog.show();
+        //맨 처음 눌렀을때 현재 날짜를 기준으로 내역 보이기
+        initHistory();
+        //스크롤시 이벤트 처리시키기 - 마지막 스크롤 도달 시 다음 페이지 데이터가 로딩 후 추가 되도록 설정
         initScrollListener();
+    }
 
+    private void initHistory() {
+        Date currentTIme = Calendar.getInstance().getTime();
+        SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy", Locale.getDefault());
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MM", Locale.getDefault());
 
+        yearNow = Integer.valueOf(yearFormat.format(currentTIme));
+        monthNow = Integer.valueOf(monthFormat.format(currentTIme));
+
+        getHistory(pageRef, yearNow, monthNow);
     }
 
     private void initScrollListener() {
@@ -134,14 +157,17 @@ public class HistroyActivity extends AppCompatActivity {
                 donateDataList.remove(donateDataList.size() - 1);
                 int scrollPosition = donateDataList.size();
                 adapter.notifyItemRemoved(scrollPosition);
-                int currentSize = scrollPosition;
-                int nextLimit = currentSize + 10;
-                doNextHistory(++pageRef, yearPick, monthPick);
+                if(yearPick == null) {
+                    Log.d(TAG, "datepick null 확인");
+                    getNextHistory(++pageRef, yearNow, monthNow);
+                }else {
+                    getNextHistory(++pageRef, yearPick, monthPick);
+                }
             }
-        }, 2000);
+        }, 3000);
     }
 
-    private void doHistory(Integer pageRef, Integer yearPick, Integer monthPick) {
+    private void getHistory(Integer pageRef, Integer yearPick, Integer monthPick) {
         RetrofitAPI retrofitAPI = ApiClient.getClient().create(RetrofitAPI.class);
 
         retrofitAPI.doHistory(spu.getString(R.string.sp_user_token, null), pageRef, yearPick, monthPick)
@@ -177,7 +203,7 @@ public class HistroyActivity extends AppCompatActivity {
                     }
                 });
     }
-    private void doNextHistory(Integer pageRef, Integer yearPick, Integer monthPick) {
+    private void getNextHistory(Integer pageRef, Integer yearPick, Integer monthPick) {
         RetrofitAPI retrofitAPI = ApiClient.getClient().create(RetrofitAPI.class);
 
         retrofitAPI.doHistory(spu.getString(R.string.sp_user_token, null), pageRef, yearPick, monthPick)
@@ -189,6 +215,11 @@ public class HistroyActivity extends AppCompatActivity {
                             progressDialog.cancel();
                             DonateHistoryDataInServer data = response.body();
                             String code = data.getCode();
+
+                            // 더이상 기부 이력이 없음.
+                            if(data.getData().size() == 0 ) {
+                                Log.d(TAG, "더이상 나올게 없음");
+                            }
 
                             Log.d(TAG, "(nextHistory) response 받기 성공");
                             Log.d(TAG, "code ::" + code);

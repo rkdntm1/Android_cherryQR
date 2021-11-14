@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.google.android.gms.common.util.SharedPreferencesUtils;
 
 import net.cherry.joinPage.JoinPage1moreActivity;
+import net.cherry.retrofit.ApiClient;
 import net.cherry.retrofit.RetrofitAPI;
 import net.cherry.retrofit.entities.JoinDataInServer;
 import net.cherry.settingPage.PwPageViewActivity;
@@ -34,7 +35,6 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     private TextView tv_pwChange, tv_acManager, tv_preview1, tv_preview2, tv_preview3, tv_supEmail, tv_signOut;
 
     private SharedPreferenceUtils spu;
-    private Retrofit retrofit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,12 +94,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void signOut() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(getString(R.string.base_url))
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
+        RetrofitAPI retrofitAPI = ApiClient.getClient().create(RetrofitAPI.class);
 
         retrofitAPI.doWithdrawal(spu.getString(R.string.sp_user_token, null)).enqueue(new Callback<JoinDataInServer>() {
             @Override

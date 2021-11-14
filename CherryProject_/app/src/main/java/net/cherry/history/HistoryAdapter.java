@@ -71,6 +71,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 String formatSetleAmt = decimalFormat.format(donateData.getSetleAmt());
 
                 Log.d(TAG, "strDT ::" + strDt);
+                viewHolder.tv_userSetleHstSn.setText(String.valueOf(donateData.getUserSetleHstSn()));
                 viewHolder.tv_date.setText(strDt);
                 viewHolder.tv_foundation.setText("[" + donateData.getMrhstNm() + "]");
                 viewHolder.tv_title.setText(donateData.getMrhstDc());
@@ -100,6 +101,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
      */
     class ViewHolder extends RecyclerView.ViewHolder {
 
+        TextView tv_userSetleHstSn;
         TextView tv_date;       //기부 날짜
         TextView tv_foundation; //기부 단체
         TextView tv_title;      //기부 제목
@@ -107,6 +109,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            this.tv_userSetleHstSn = itemView.findViewById(R.id.tv_userSetleHstSn);
             this.tv_date = (TextView) itemView.findViewById(R.id.tv_date);
             this.tv_foundation = itemView.findViewById(R.id.tv_foundation);
             this.tv_title = itemView.findViewById(R.id.tv_title);
